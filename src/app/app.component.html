@@ -3,34 +3,60 @@
 <button
   class="button button-primary"
   type="button"
-  (click)="show()">Mostrar Modal</button>
-
+  (click)="show()">Mostrar Modal
+</button>
 
 <ng-template #userData>
-  <div class="form-field">
-    <label for="firstName">Nome:</label>
-    <input id="firstName" type="text" [(value)]="firstName">
-  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-field">
+      <label for="firstName">Nome:</label>
+      <input
+        aria-describedby="firstName-error"
+        [attr.aria-invalid]="form.get('firstName').invalid"
+        formControlName="firstName"
+        id="firstName"
+        type="text">
+      <span id="firstNameError" class="validation-error" *ngIf="form.get('firstName')?.errors?.required">
+        O preenchimento do campo "Nome" é obrigatório.
+      </span>
+    </div>
 
-  <div class="form-field">
-    <label for="surName">Sobrenome:</label>
-    <input id="surtName" type="text">
-  </div>
+    <div class="form-field">
+      <label for="surName">Sobrenome:</label>
+      <input
+        aria-describedby="surName-error"
+        [attr.aria-invalid]="form.get('surName').invalid"
+        formControlName="surName"
+        id="surName"
+        type="text">
+      <span id="surName-error" class="validation-error" *ngIf="form.get('surName')?.errors?.required">
+        O preenchimento do campo "Sobrenome" é obrigatório.
+      </span>
+    </div>
 
-  <div class="form-field">
-    <label for="age">Idade:</label>
-    <input id="age" type="text">
-  </div>
+    <div class="form-field">
+      <label for="age">Idade:</label>
+      <input
+        aria-describedby="age-error"
+        [attr.aria-invalid]="form.get('age').invalid"
+        formControlName="age"
+        id="age"
+        type="text">
+      <span id="age-error" class="validation-error" *ngIf="form.get('age')?.errors?.required">
+        O preenchimento do campo "Idade" é obrigatório.
+      </span>
+    </div>
 
-  <label for="subscribe">Receber notficações</label>
-  <input id="subscribe" type="checkbox" (change)="subscribe = !subscribe">
-  <p [@fade] *ngIf="subscribe" >Exemplo de animation com ngIf</p> <!-- não vi efeito do fade nessa história -->
+    <label for="subscribe">Receber notificações</label>
+    <input formControlName="subscribe" id="subscribe" type="checkbox" (change)="subscribe = !subscribe">
+    <p [@fade] *ngIf="subscribe" >Exemplo de animation com ngIf</p> <!-- não vi efeito do fade nessa história -->
 
-  <div class="button-group">
-    <button class="button button-primary" type="button">Submeter</button>
-    <button
-      class="button button-secundary"
-      type="button"
-      (click)="modalRef.close()">Cancelar</button>
-  </div>
+    <div class="button-group">
+      <button class="button button-primary" type="submit" [attr.aria-disabled]="form.invalid">Submeter</button>
+      <button
+        class="button button-secundary"
+        type="button"
+        (click)="modalRef.close()">Cancelar</button>
+    </div>
+  </form>
 </ng-template>
