@@ -1,0 +1,36 @@
+<h1>Acessible Modal Component</h1>
+<p>Bem-vindo à página de teste do Modal Acessível</p>
+<button
+  class="button button-primary"
+  type="button"
+  (click)="show()">Mostrar Modal</button>
+
+
+<ng-template #userData>
+  <div class="form-field">
+    <label for="firstName">Nome:</label>
+    <input id="firstName" type="text" [(value)]="firstName">
+  </div>
+
+  <div class="form-field">
+    <label for="surName">Sobrenome:</label>
+    <input id="surtName" type="text">
+  </div>
+
+  <div class="form-field">
+    <label for="age">Idade:</label>
+    <input id="age" type="text">
+  </div>
+
+  <label for="subscribe">Receber notficações</label>
+  <input id="subscribe" type="checkbox" (change)="subscribe = !subscribe">
+  <p [@fade] *ngIf="subscribe" >Exemplo de animation com ngIf</p> <!-- não vi efeito do fade nessa história -->
+
+  <div class="button-group">
+    <button class="button button-primary" type="button">Submeter</button>
+    <button
+      class="button button-secundary"
+      type="button"
+      (click)="modalRef.close()">Cancelar</button>
+  </div>
+</ng-template>
